@@ -3,9 +3,6 @@
 Win Runtime Optimizer adalah skrip PowerShell portable untuk optimisasi runtime Windows  
 secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
 
-Script ini digunakan sebagai **tools internal di dalam folder project**,  
-bukan untuk public release atau distribusi umum.
-
 ---
 
 ## 🎯 Tujuan
@@ -83,11 +80,6 @@ Script berjalan **silent tanpa output**.
 
 ## ⏱️ Setup Otomatis (Task Scheduler)
 
-Bagian ini ditujukan untuk pengguna awam maupun internal  
-yang ingin menjalankan script secara otomatis.
-
----
-
 ### 1️⃣ Buka Task Scheduler
 
 Tekan **Win + R**, lalu ketik:
@@ -126,8 +118,9 @@ Klik **Create Task** (jangan pilih *Basic Task*)
 - Centang **Enable**
 - Klik **OK**
 
-> Catatan: Menjalankan setiap 1 jam **tidak direkomendasikan**  
-> karena script ini bersifat maintenance ringan, bukan real-time optimizer.
+> ⚠️ Dropdown hanya menampilkan sampai 1 hour,
+tetapi kamu bisa mengetik manual 6 hours atau 06:00:00.
+Menjalankan setiap 1 jam **tidak direkomendasikan** karena script ini bersifat maintenance ringan, bukan real-time optimizer.
 
 ---
 
@@ -147,7 +140,7 @@ Klik **Create Task** (jangan pilih *Basic Task*)
 
       C:\Users\ncexs\Downloads
 
-> Ganti path sesuai lokasi kamu menyimpan script.
+> ⚠️ Ganti path sesuai lokasi kamu menyimpan script.
 
 ---
 
@@ -167,6 +160,7 @@ Klik **Create Task** (jangan pilih *Basic Task*)
   - Stop the task if it runs longer than
 
 Klik **OK**, lalu masukkan password Windows jika diminta.
+> ⚠️ Jika ingin tanpa password, gunakan akun SYSTEM saat membuat task (di dropdown Change User or Group... ketik SYSTEM).
 
 ---
 
