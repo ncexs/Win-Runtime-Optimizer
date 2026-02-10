@@ -1,116 +1,104 @@
-# =====================================================
-# Win Runtime Optimizer
-# Silent | Safe | Scheduler Ready
-# =====================================================
+# ============================================================
+# Win Runtime Optimizer (Optimized)
+# SYSTEM-safe runtime cleanup script
+# ============================================================
 
 $ErrorActionPreference = "SilentlyContinue"
 
-# -------------------------------
-# Helper: Clear folder contents
-# -------------------------------
-function Clear-FolderSafe {
+# -----------------------------
+# Helper: cek process aktif
+# -----------------------------
+function Test-ProcessRunning {
+    param ([string[]]$ProcessNames)
+
+    foreach ($name in $ProcessNames) {
+        if (Get-Process -Name $name -ErrorAction SilentlyContinue) {
+            return $true
+        }
+    }
+    return $false
+}
+
+# -----------------------------
+# Helper: hapus isi folder saja
+# -----------------------------
+function Clear-FolderContent {
     param ([string]$Path)
 
     if (Test-Path $Path) {
-        Get-ChildItem $Path -Force -ErrorAction SilentlyContinue |
+        Get-ChildItem -Path $Path -Recurse -Force -ErrorAction SilentlyContinue |
             Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
 
-# -------------------------------
-# Detect active browsers (IMPORTANT)
-# -------------------------------
-$activeBrowsers = @(
-    "chrome",
-    "msedge",
-    "brave",
-    "firefox"
+# ============================================================
+# 1. Runtime Temp Cleanup
+# ============================================================
+
+Clear-FolderContent "$env:TEMP"
+Clear-FolderContent "C:\Windows\Temp"
+Clear-FolderContent "C:\Windows\Prefetch"
+
+# ============================================================
+# 2. GPU / Shader Cache
+# ============================================================
+
+$gpuPaths = @(
+    "C:\ProgramData\NVIDIA Corporation\NV_Cache",
+    "C:\Users\*\AppData\Local\NVIDIA\DXCache",
+    "C:\Users\*\AppData\Local\NVIDIA\GLCache",
+    "C:\Users\*\AppData\Local\AMD\DxCache",
+    "C:\Users\*\AppData\Local\AMD\GLCache",
+    "C:\Users\*\AppData\Local\Intel\ShaderCache"
 )
 
-$runningBrowserNames = Get-Process -ErrorAction SilentlyContinue |
-    Where-Object { $activeBrowsers -contains $_.ProcessName } |
-    Select-Object -ExpandProperty ProcessName -Unique
-
-# -------------------------------
-# Browser Cache Cleanup (SAFE ONLY)
-# Tidak sentuh login/session WA Web
-# -------------------------------
-$browserProfiles = @{
-    Chrome = "$env:LOCALAPPDATA\Google\Chrome\User Data"
-    Edge   = "$env:LOCALAPPDATA\Microsoft\Edge\User Data"
-    Brave  = "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\User Data"
+foreach ($path in $gpuPaths) {
+    Clear-FolderContent $path
 }
 
-foreach ($browser in $browserProfiles.Keys) {
+# ============================================================
+# 3. Browser Cache Cleanup (SAFE MODE)
+# ============================================================
 
-    # Skip cleanup jika browser sedang aktif
-    if ($runningBrowserNames -contains $browser.ToLower()) { continue }
+$browsers = @(
+    @{
+        Process = @("chrome")
+        Paths = @(
+            "C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Cache",
+            "C:\Users\*\AppData\Local\Google\Chrome\User Data\*\Code Cache",
+            "C:\Users\*\AppData\Local\Google\Chrome\User Data\*\GPUCache"
+        )
+    },
+    @{
+        Process = @("msedge")
+        Paths = @(
+            "C:\Users\*\AppData\Local\Microsoft\Edge\User Data\*\Cache",
+            "C:\Users\*\AppData\Local\Microsoft\Edge\User Data\*\Code Cache",
+            "C:\Users\*\AppData\Local\Microsoft\Edge\User Data\*\GPUCache"
+        )
+    },
+    @{
+        Process = @("brave")
+        Paths = @(
+            "C:\Users\*\AppData\Local\BraveSoftware\Brave-Browser\User Data\*\Cache",
+            "C:\Users\*\AppData\Local\BraveSoftware\Brave-Browser\User Data\*\Code Cache",
+            "C:\Users\*\AppData\Local\BraveSoftware\Brave-Browser\User Data\*\GPUCache"
+        )
+    },
+    @{
+        Process = @("firefox")
+        Paths = @(
+            "C:\Users\*\AppData\Local\Mozilla\Firefox\Profiles\*\cache2"
+        )
+    }
+)
 
-    $root = $browserProfiles[$browser]
-
-    if (Test-Path $root) {
-        Get-ChildItem $root -Directory | ForEach-Object {
-            Clear-FolderSafe "$($_.FullName)\Cache"
-            Clear-FolderSafe "$($_.FullName)\Code Cache"
-            Clear-FolderSafe "$($_.FullName)\GPUCache"
-            Clear-FolderSafe "$($_.FullName)\ShaderCache"
+foreach ($browser in $browsers) {
+    if (-not (Test-ProcessRunning $browser.Process)) {
+        foreach ($path in $browser.Paths) {
+            Clear-FolderContent $path
         }
     }
 }
-
-# -------------------------------
-# Firefox Cache Cleanup (SAFE)
-# -------------------------------
-if (-not ($runningBrowserNames -contains "firefox")) {
-    $firefoxProfiles = "$env:APPDATA\Mozilla\Firefox\Profiles"
-    if (Test-Path $firefoxProfiles) {
-        Get-ChildItem $firefoxProfiles -Directory | ForEach-Object {
-            Clear-FolderSafe "$($_.FullName)\cache2"
-            Clear-FolderSafe "$($_.FullName)\startupCache"
-        }
-    }
-}
-
-# -------------------------------
-# System Cache (Aman & umum)
-# -------------------------------
-$systemTargets = @(
-    $env:TEMP,
-    "$env:SystemRoot\Temp",
-    "$env:SystemRoot\Prefetch",
-    "$env:LOCALAPPDATA\AMD\DxCache",
-    "$env:LOCALAPPDATA\NVIDIA\GLCache",
-    "$env:LOCALAPPDATA\Intel\ShaderCache"
-)
-
-foreach ($path in $systemTargets) {
-    Clear-FolderSafe $path
-}
-
-# -------------------------------
-# RAM Optimization (Selective)
-# Skip browser & system critical
-# -------------------------------
-Add-Type @"
-using System;
-using System.Runtime.InteropServices;
-
-public static class RamCleaner {
-    [DllImport("psapi.dll")]
-    public static extern bool EmptyWorkingSet(IntPtr hProcess);
-}
-"@
-
-Get-Process | Where-Object {
-    $_.Id -ne $PID -and
-    $_.ProcessName -notmatch "chrome|msedge|brave|firefox|explorer|dwm"
-} | ForEach-Object {
-    try {
-        [RamCleaner]::EmptyWorkingSet($_.Handle) | Out-Null
-    } catch {}
-}
-
-[System.GC]::Collect()
-[System.GC]::WaitForPendingFinalizers()
 
 exit 0
