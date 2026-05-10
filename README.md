@@ -1,5 +1,7 @@
 # ⚡ Win Runtime Optimizer
 
+📄 **[Catatan Perubahan](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
+
 Win Runtime Optimizer adalah skrip PowerShell portable untuk optimisasi runtime Windows  
 secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
 
