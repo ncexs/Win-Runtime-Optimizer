@@ -1,6 +1,6 @@
 # 📋 Changelog
 
-All notable changes to the **Win Runtime Optimizer** project will be documented in this file.
+All notable changes to the **ncexs Auto Task** project will be documented in this file.
 
 ---
 

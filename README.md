@@ -1,10 +1,10 @@
-# ⚡ Win Runtime Optimizer
+# ⚡ ncexs Auto Task (NAT)
 
 🌐 [Bahasa Indonesia](README.id.md) | **English**
 
 📄 **[Changelog](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
 
-Win Runtime Optimizer is a lightweight, portable PowerShell script designed for safe, silent, and stable Windows runtime maintenance and optimization, without interrupting your active applications or browser sessions.
+**ncexs Auto Task** is a lightweight, portable PowerShell script designed for safe, silent, and stable Windows runtime maintenance and optimization, without interrupting your active applications or browser sessions.
 
 ---
 
@@ -73,7 +73,7 @@ Authentication folders, active user sessions, and cookies are **completely untou
 Run PowerShell (which will automatically prompt for Administrator privileges if executed in interactive mode) and run the following command:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1
+powershell -ExecutionPolicy Bypass -File ncexs-AutoTask.ps1
 ```
 
 ### ⚙️ Optional Parameters (Advanced)
@@ -87,7 +87,7 @@ Customize execution using these parameters:
 
 Usage Example:
 ```powershell
-powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1 -Silent -SkipUpdate
+powershell -ExecutionPolicy Bypass -File ncexs-AutoTask.ps1 -Silent -SkipUpdate
 ```
 
 ---
@@ -111,7 +111,7 @@ Click **Create Task** (do not select *Basic Task*)
 **General Tab**
 - Name:
   
-      Win Runtime Optimizer
+      ncexs Auto Task
 
 - Check:
   - Run whether user is logged on or not
@@ -146,7 +146,7 @@ Click **Create Task** (do not select *Basic Task*)
 
 - Add arguments:
 
-      -ExecutionPolicy Bypass -File "C:\Users\ncexs\Downloads\WinRuntimeOptimizer.ps1" -Silent
+      -ExecutionPolicy Bypass -File "C:\Users\ncexs\Downloads\ncexs-AutoTask.ps1" -Silent
 
 - Start in (optional):
 
@@ -200,7 +200,7 @@ This script is engineered to run 100% safely and unattended via **Task Scheduler
 
 - **Automated Project Tool** with fully integrated self-updating mechanism.
 - **Auto-Versioning** (commencing at `v1.0.0` as the first stable release basis).
-- **Self-Updating**: Automatically queries and fetches the newest release from your GitHub repository (`ncexs/Win-Runtime-Optimizer`) upon launch.
+- **Self-Updating**: Automatically queries and fetches the newest release from your GitHub repository (`ncexs/ncexs-AutoTask`) upon launch.
 - Highly optimized for Windows Task Scheduler scheduling.
 
 ---

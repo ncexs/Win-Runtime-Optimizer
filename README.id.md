@@ -1,11 +1,10 @@
-# ⚡ Win Runtime Optimizer
+# ⚡ ncexs Auto Task (NAT)
 
 🌐 **Bahasa Indonesia** | [English](README.md)
 
 📄 **[Catatan Perubahan](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
 
-Win Runtime Optimizer adalah skrip PowerShell portable untuk optimisasi runtime Windows  
-secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
+**ncexs Auto Task** adalah skrip PowerShell portable untuk optimisasi runtime Windows secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
 
 ---
 
@@ -76,7 +75,7 @@ Folder autentikasi, cookies, dan session **tidak disentuh**.
 Jalankan PowerShell (akan otomatis meminta hak akses Administrator jika berjalan secara interaktif) dengan perintah berikut:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1
+powershell -ExecutionPolicy Bypass -File ncexs-AutoTask.ps1
 ```
 
 ### ⚙️ Parameter Opsional (Advanced)
@@ -90,7 +89,7 @@ Anda bisa menambahkan parameter berikut untuk menyesuaikan jalannya skrip:
 
 Contoh pemakaian:
 ```powershell
-powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1 -Silent -SkipUpdate
+powershell -ExecutionPolicy Bypass -File ncexs-AutoTask.ps1 -Silent -SkipUpdate
 ```
 
 ---
@@ -114,7 +113,7 @@ Klik **Create Task** (jangan pilih *Basic Task*)
 **Tab General**
 - Name:
   
-      Win Runtime Optimizer
+      ncexs Auto Task
 
 - Centang:
   - Run whether user is logged on or not
@@ -151,7 +150,7 @@ Menjalankan setiap 1 jam **tidak direkomendasikan** karena script ini bersifat m
 
 - Add arguments:
 
-      -ExecutionPolicy Bypass -File "C:\Users\ncexs\Downloads\WinRuntimeOptimizer.ps1" -Silent
+      -ExecutionPolicy Bypass -File "C:\Users\ncexs\Downloads\ncexs-AutoTask.ps1" -Silent
 
 - Start in (optional):
 
@@ -203,7 +202,7 @@ Skrip ini telah dirancang khusus agar aman 100% saat berjalan otomatis melalui *
 
 - **Automated Project Tool** dengan sistem pembaruan otomatis terintegrasi.
 - **Auto-Versioning** (dimulai dari `v1.0.0` sebagai versi stabil pertama).
-- **Self-Updating**: Secara otomatis mengecek dan mengunduh versi terbaru langsung dari repositori GitHub Anda (`ncexs/Win-Runtime-Optimizer`) saat dijalankan.
+- **Self-Updating**: Secara otomatis mengecek dan mengunduh versi terbaru langsung dari repositori GitHub Anda (`ncexs/ncexs-AutoTask`) saat dijalankan.
 - Cocok diintegrasikan dengan Windows Task Scheduler untuk pemeliharaan rutin tanpa campur tangan manual.
 
 ---

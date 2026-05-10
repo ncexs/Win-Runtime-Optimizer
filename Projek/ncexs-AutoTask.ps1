@@ -1,8 +1,8 @@
 # ==========================================================
-# WIN RUNTIME OPTIMIZER (v2.0.0-Auto)
+# NCEXS AUTO TASK (v2.0.0-Auto)
 # Full Auto | Win10/11 | SSD/HDD Aware | WA Safe | Self-Updating
 # ==========================================================
-# GitHub Repo: https://github.com/ncexs/Win-Runtime-Optimizer
+# GitHub Repo: https://github.com/ncexs/ncexs-AutoTask
 # Author: Ncexs
 # ==========================================================
 
@@ -90,7 +90,7 @@ if (-not $IsAdmin) {
 if (-not $Silent) {
     Clear-Host
     Write-Host "+==========================================================+" -ForegroundColor Cyan
-    Write-Host "|                WIN RUNTIME OPTIMIZER                     |" -ForegroundColor Cyan
+    Write-Host "|                     NCEXS AUTO TASK                      |" -ForegroundColor Cyan
     Write-Host "|                    Version $VERSION                      |" -ForegroundColor Cyan
     Write-Host "|          Full Auto | SSD/HDD Aware | WA Safe             |" -ForegroundColor Cyan
     Write-Host "+==========================================================+" -ForegroundColor Cyan
@@ -107,9 +107,9 @@ function Check-ForUpdates {
     }
     
     $RepoOwner = "ncexs"
-    $RepoName = "Win-Runtime-Optimizer"
+    $RepoName = "ncexs-AutoTask"
     $Branch = $CustomBranch
-    $RemoteUrl = "https://raw.githubusercontent.com/$RepoOwner/$RepoName/$Branch/Projek/WinRuntimeOptimizer.ps1"
+    $RemoteUrl = "https://raw.githubusercontent.com/$RepoOwner/$RepoName/$Branch/Projek/ncexs-AutoTask.ps1"
     
     Write-Log "Checking for updates..." "INFO"
     
