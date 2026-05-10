@@ -1,147 +1,144 @@
 # ⚡ Win Runtime Optimizer
 
-📄 **[Catatan Perubahan](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
+🌐 [Bahasa Indonesia](README.id.md) | **English**
 
-Win Runtime Optimizer adalah skrip PowerShell portable untuk optimisasi runtime Windows  
-secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
+📄 **[Changelog](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
 
----
-
-## 🎯 Tujuan
-
-- Menjaga performa Windows tetap stabil
-- Mengurangi lag akibat cache dan temp yang menumpuk
-- Membersihkan runtime sampah yang aman untuk dihapus
-- Mendukung eksekusi otomatis tanpa mengganggu user
+Win Runtime Optimizer is a lightweight, portable PowerShell script designed for safe, silent, and stable Windows runtime maintenance and optimization, without interrupting your active applications or browser sessions.
 
 ---
 
-## ✅ Yang Dilakukan Skrip
+## 🎯 Purpose
 
-- **Pembersihan Cache Sistem Ringan dan Aman:**
-  - User Temp (`%TEMP%`)
-  - System Temp (`C:\Windows\Temp`)
-  - Prefetch (isi folder saja - khusus HDD)
-  - **GPU & Shader Cache** (AMD, NVIDIA, Intel - DXCache, GLCache, ComputeCache, ShaderCache)
-- **Pembersihan Cache Browser & Aplikasi Ringan (Proses-Aware):**
-  - Hanya menghapus file cache non-kritis (Cache, Code Cache, GPUCache, DawnWebGPUCache, ShaderCache)
-  - **Mendeteksi aplikasi per-item:** Jika Chrome aktif tetapi Firefox/Edge tertutup, skrip akan tetap membersihkan Firefox/Edge dengan aman dan hanya melemwati Chrome!
-  - Mendukung aplikasi:
+- Maintain consistent system performance and stability.
+- Reduce latency and system lag by clearing accumulated temporary files and caches.
+- Safely clean up redundant runtime files.
+- Enable fully automated background execution without user interruption.
+
+---
+
+## ✅ What the Script Does
+
+- **Safe & Lightweight System Cache Cleanup:**
+  - User Temporary Files (`%TEMP%`)
+  - System Temporary Files (`C:\Windows\Temp`)
+  - Prefetch Cache (contents only - restricted to HDD systems to avoid SSD wear)
+  - **GPU & Shader Cache** (AMD, NVIDIA, and Intel shader caches: DXCache, GLCache, ComputeCache, ShaderCache)
+- **Process-Aware Web Browser & App Cache Cleanup:**
+  - Safely deletes non-critical caches (Cache, Code Cache, GPUCache, DawnWebGPUCache, ShaderCache).
+  - **Per-Application Process Checking:** If Google Chrome is active but Firefox or Microsoft Edge is closed, the script safely bypasses Chrome and cleans Firefox/Edge without global lockups.
+  - Supported Applications:
     - Google Chrome
     - Microsoft Edge
     - Brave Browser
     - Opera Stable & **Opera GX** (Gaming Browser)
     - Mozilla Firefox
-    - **Discord** (Aplikasi chat/gaming, cache-nya sering menumpuk hingga GB)
+    - **Discord** (Gaming/Chat application, caches often build up to several gigabytes)
 
 ---
 
-## ❌ Yang TIDAK Dilakukan
+## ❌ What the Script Does NOT Do
 
-- Tidak menutup browser
-- Tidak kill process
-- Tidak logout web app
-- Tidak menghapus Cookies
-- Tidak menghapus Local Storage
-- Tidak menghapus IndexedDB
-- Tidak mengubah registry atau system policy
+- Does NOT close open web browsers or kill active processes.
+- Does NOT log you out of active web apps or websites.
+- Does NOT delete browser cookies.
+- Does NOT clear Local Storage, Session Storage, or IndexedDB.
+- Does NOT modify Windows registry settings or system policies.
 
-Script ini fokus pada **runtime cleanup**, bukan optimisasi agresif.
+This script is purely focused on safe **runtime maintenance**, avoiding aggressive or destructive system tweaks.
 
 ---
 
-## 📂 Area yang Dibersihkan
+## 📂 Targeted Directories
 
-Hanya folder dan area berikut:
+Only the following specific folders are targeted for cleanup:
 
 - `%TEMP%` (User Temp)
 - `C:\Windows\Temp` (System Temp)
-- `C:\Windows\Prefetch` (Hanya isi folder, khusus untuk HDD)
+- `C:\Windows\Prefetch` (Folder contents, restricted to HDD only)
 - **Windows Update Download Cache** (`C:\Windows\SoftwareDistribution\Download`)
 - **GPU & Shader Cache** (NVIDIA, AMD, Intel - DXCache, GLCache, ComputeCache, ShaderCache)
-- **Browser & App Caches non-kritis** (Chrome, Edge, Brave, Opera Stable, Opera GX, Firefox, Discord):
+- **Non-critical Browser & App Caches** (Chrome, Edge, Brave, Opera Stable, Opera GX, Firefox, Discord):
   - Cache & cache2
   - Code Cache & startupCache
   - GPUCache & DawnWebGPUCache
   - ShaderCache, jumpListCache, & thumbnail
 
-Folder autentikasi, cookies, dan session **tidak disentuh**.
+Authentication folders, active user sessions, and cookies are **completely untouched**.
 
 ---
 
-## ▶️ Cara Menjalankan Manual
+## ▶️ Manual Execution
 
-Jalankan PowerShell (akan otomatis meminta hak akses Administrator jika berjalan secara interaktif) dengan perintah berikut:
+Run PowerShell (which will automatically prompt for Administrator privileges if executed in interactive mode) and run the following command:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1
 ```
 
-### ⚙️ Parameter Opsional (Advanced)
+### ⚙️ Optional Parameters (Advanced)
 
-Anda bisa menambahkan parameter berikut untuk menyesuaikan jalannya skrip:
+Customize execution using these parameters:
 
-* **`-Silent`**: Menjalankan skrip secara latar belakang (silent) tanpa output ke layar konsol sama sekali. Sangat cocok untuk otomatisasi Task Scheduler.
-* **`-SkipUpdate`**: Melewati pengecekan pembaruan otomatis (self-updater) di awal eksekusi.
-* **`-ForceUpdate`**: Memaksa pengunduhan ulang skrip dari GitHub meskipun versi lokal Anda sudah sama dengan versi remote.
-* **`-CustomBranch "nama_branch"`**: Mengubah target branch untuk pembaruan skrip (default: `"main"`).
+* **`-Silent`**: Runs the script completely in the background without any console output. Recommended for Task Scheduler.
+* **`-SkipUpdate`**: Skips the automatic update check (Self-Updater) at startup.
+* **`-ForceUpdate`**: Forces the script to re-download itself from the GitHub repository even if the local version is identical.
+* **`-CustomBranch "branch_name"`**: Sets a custom branch for checking updates (defaults to `"main"`).
 
-Contoh pemakaian:
+Usage Example:
 ```powershell
 powershell -ExecutionPolicy Bypass -File WinRuntimeOptimizer.ps1 -Silent -SkipUpdate
 ```
 
 ---
 
-## ⏱️ Setup Otomatis (Task Scheduler)
+## ⏱️ Automatic Setup (Task Scheduler)
 
-### 1️⃣ Buka Task Scheduler
+### 1️⃣ Open Task Scheduler
 
-Tekan **Win + R**, lalu ketik:
+Press **Win + R**, type:
 
     taskschd.msc
 
-Tekan **Enter**
+Press **Enter**
 
 ---
 
-### 2️⃣ Buat Task Baru
+### 2️⃣ Create a New Task
 
-Klik **Create Task** (jangan pilih *Basic Task*)
+Click **Create Task** (do not select *Basic Task*)
 
-**Tab General**
+**General Tab**
 - Name:
   
       Win Runtime Optimizer
 
-- Centang:
+- Check:
   - Run whether user is logged on or not
   - Run with highest privileges
 
 ---
 
-### 3️⃣ Tab Triggers
+### 3️⃣ Triggers Tab
 
-- Klik **New**
+- Click **New**
 - Begin the task: **On a schedule**
-- Pilih **Daily**
+- Select **Daily**
 
-**Advanced settings (opsional):**
+**Advanced settings (optional):**
 - Repeat task every: **6 hours**  
-  *(atau kosongkan jika hanya ingin jalan sekali sehari)*
+  *(or leave unchecked if you want it to run once daily)*
 - For a duration of: **Indefinitely**
-- Centang **Enable**
-- Klik **OK**
+- Check **Enabled**
+- Click **OK**
 
-> ⚠️ Dropdown hanya menampilkan sampai 1 hour,
-tetapi kamu bisa mengetik manual 6 hours atau 06:00:00.
-Menjalankan setiap 1 jam **tidak direkomendasikan** karena script ini bersifat maintenance ringan, bukan real-time optimizer.
+> ⚠️ The scheduler dropdown menu maxes out at 1 hour, but you can type **6 hours** manually. Running the script every hour is **strongly discouraged** as this is a lightweight maintenance tool, not a real-time monitor.
 
 ---
 
-### 4️⃣ Tab Actions
+### 4️⃣ Actions Tab
 
-- Klik **New**
+- Click **New**
 - Action: **Start a program**
 - Program/script:
 
@@ -155,61 +152,63 @@ Menjalankan setiap 1 jam **tidak direkomendasikan** karena script ini bersifat m
 
       C:\Users\ncexs\Downloads
 
-> ⚠️ Ganti path sesuai lokasi kamu menyimpan script.
+> ⚠️ Replace the folder path with the exact directory where you saved the script.
 
 ---
 
-### 5️⃣ Tab Conditions
+### 5️⃣ Conditions Tab
 
-- Hilangkan centang:
+- Uncheck:
   - Start the task only if the computer is on AC power
 
 ---
 
-### 6️⃣ Tab Settings
+### 6️⃣ Settings Tab
 
-- Centang:
+- Check:
   - Allow task to be run on demand
   - Run task as soon as possible after a scheduled start is missed
-- Jangan centang:
+- Uncheck:
   - Stop the task if it runs longer than
 
-Klik **OK**, lalu masukkan password Windows jika diminta.
-> ⚠️ Jika ingin tanpa password, gunakan akun SYSTEM saat membuat task (di dropdown Change User or Group... ketik SYSTEM).
-
-## 🔒 Keamanan & Stabilitas di Task Scheduler
-
-Skrip ini telah dirancang khusus agar aman 100% saat berjalan otomatis melalui **Task Scheduler** di latar belakang tanpa pengawasan:
-
-1. **Auto-Detect Non-Interactive (`UserInteractive`):** Jika skrip dijalankan oleh Task Scheduler (bahkan jika Anda lupa menambahkan parameter `-Silent`), skrip secara otomatis mendeteksi bahwa ia berjalan di latar belakang dan memaksa mode silent (`$Silent = $true`). Ini mencegah skrip membeku (*freeze*) akibat menunggu input pengguna (seperti perintah interaktif `Read-Host` pada proses update).
-2. **Process-Aware Protection:** Sebelum membersihkan cache aplikasi (Chrome, Edge, Brave, Opera, Firefox, Discord), skrip mengecek apakah aplikasi tersebut sedang aktif. Jika aktif, pembersihan aplikasi tersebut dilewati secara cerdas agar tidak mengganggu sesi aktif Anda atau menyebabkan korupsi data.
-3. **Graceful Elevation Check:** Jika Task Scheduler lupa dikonfigurasi dengan "Highest Privileges", skrip tidak akan memunculkan pop-up UAC Windows yang dapat menggantung di background. Skrip mendeteksi hal ini secara diam-diam, mencatat eror ke file log, lalu keluar secara bersih.
-4. **Smart Windows Update Cleanup:** Layanan Windows Update (`wuauserv`) hanya akan dihentikan sementara jika saat itu statusnya sedang berjalan, dan akan dinyalakan kembali setelah pembersihan selesai. Jika statusnya sejak awal memang sedang mati, skrip tidak akan mengubah preferensi sistem Anda.
+Click **OK**, and enter your Windows password if prompted.
+> ⚠️ To run the task without a password prompt, set the security user to **SYSTEM** (click *Change User or Group...*, type **SYSTEM**, and click OK).
 
 ---
 
-## 🧠 Prinsip Desain
+## 🔒 Security & Stability in Task Scheduler
 
-- Aman > agresif
-- Stabilitas jangka panjang
-- Tidak mengganggu aplikasi aktif
-- Cocok dijalankan rutin sebagai maintenance ringan
+This script is engineered to run 100% safely and unattended via **Task Scheduler** in the background:
+
+1. **Auto-Detect Non-Interactive (`UserInteractive`):** If executed via Task Scheduler (even if you omit the `-Silent` parameter), the script automatically detects the background execution environment and forces silent mode (`$Silent = $true`). This prevents the script from hanging or freezing on interactive input prompts (like `Read-Host` during updates).
+2. **Process-Aware Protection:** Before cleaning browser or app caches, the script verifies if those applications are active. If active, cleanup for that specific program is skipped to protect active sessions and prevent database corruption.
+3. **Graceful Elevation Check:** If the task is misconfigured without "Highest Privileges", the script will not block or trigger a hidden UAC pop-up in Session 0. It logs a clean warning to the log file and exits gracefully.
+4. **Smart Windows Update Cleanup:** The Windows Update service (`wuauserv`) is stopped temporarily only if it was already running, and is restarted immediately after. If it was disabled or stopped originally, the script preserves your settings.
+
+---
+
+## 🧠 Design Principles
+
+- Safety > Aggressiveness
+- Long-term stability and reliability
+- Zero interference with active user applications
+- Perfect as a lightweight, scheduled maintenance routine
 
 ---
 
 ## 📄 Status
 
-- **Automated Project Tool** dengan sistem pembaruan otomatis terintegrasi.
-- **Auto-Versioning** (dimulai dari `v1.0.0` sebagai versi stabil pertama).
-- **Self-Updating**: Secara otomatis mengecek dan mengunduh versi terbaru langsung dari repositori GitHub Anda (`ncexs/Win-Runtime-Optimizer`) saat dijalankan.
-- Cocok diintegrasikan dengan Windows Task Scheduler untuk pemeliharaan rutin tanpa campur tangan manual.
+- **Automated Project Tool** with fully integrated self-updating mechanism.
+- **Auto-Versioning** (commencing at `v1.0.0` as the first stable release basis).
+- **Self-Updating**: Automatically queries and fetches the newest release from your GitHub repository (`ncexs/Win-Runtime-Optimizer`) upon launch.
+- Highly optimized for Windows Task Scheduler scheduling.
 
 ---
 
 ## 🔧 Maintenance
 
-Jika ada perubahan struktur OS atau browser:
+If system files, OS structure, or browser directory paths change in future updates:
 
-- Review ulang path cache
-- Pastikan data session tetap aman
-- Sesuaikan logic deteksi process bila diperlukan
+- Review directory paths for browser profiles and caches.
+- Ensure user data and session storage remain fully protected.
+- Adjust the running process checking logic where necessary.
