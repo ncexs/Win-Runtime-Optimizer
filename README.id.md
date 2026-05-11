@@ -1,6 +1,6 @@
 # ⚡ ncexs Auto Task (NAT)
 
-🌐 **Bahasa Indonesia** | [English](README.md)
+🌐 [English](README.md) | **Bahasa Indonesia**
 
 📄 **[Catatan Perubahan](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
 
@@ -214,3 +214,10 @@ Jika ada perubahan struktur OS atau browser:
 - Review ulang path cache
 - Pastikan data session tetap aman
 - Sesuaikan logic deteksi process bila diperlukan
+
+---
+
+## 📜 Lisensi
+
+MIT License - lihat file [LICENSE](LICENSE) untuk detailnya.  
+Gunakan dengan risiko Anda sendiri ⚠️.

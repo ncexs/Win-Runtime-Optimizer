@@ -109,7 +109,7 @@ function Check-ForUpdates {
     $RepoOwner = "ncexs"
     $RepoName = "ncexs-AutoTask"
     $Branch = $CustomBranch
-    $RemoteUrl = "https://raw.githubusercontent.com/$RepoOwner/$RepoName/$Branch/Projek/ncexs-AutoTask.ps1"
+    $RemoteUrl = "https://raw.githubusercontent.com/$RepoOwner/$RepoName/$Branch/ncexs-AutoTask.ps1"
     
     Write-Log "Checking for updates..." "INFO"
     

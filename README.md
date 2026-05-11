@@ -1,6 +1,6 @@
 # ⚡ ncexs Auto Task (NAT)
 
-🌐 [Bahasa Indonesia](README.id.md) | **English**
+🌐 **English** | [Bahasa Indonesia](README.id.md)
 
 📄 **[Changelog](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
 
@@ -212,3 +212,10 @@ If system files, OS structure, or browser directory paths change in future updat
 - Review directory paths for browser profiles and caches.
 - Ensure user data and session storage remain fully protected.
 - Adjust the running process checking logic where necessary.
+
+---
+
+## 📜 License
+
+MIT License - see the [LICENSE](LICENSE) file for details.  
+Use at your own risk ⚠️.
