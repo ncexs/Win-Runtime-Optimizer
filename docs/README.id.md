@@ -1,8 +1,8 @@
 # ⚡ ncexs Auto Task (NAT)
 
-🌐 [English](README.md) | **Bahasa Indonesia**
+🌐 [English](../README.md) | **Bahasa Indonesia** | [Basa Jawa](README.jv.md) | [Basa Sunda](README.su.md) | [हिन्दी](README.hi.md) | [Русский](README.ru.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [简体中文](README.zh.md) | [العربية](README.ar.md)
 
-📄 **[Catatan Perubahan](CHANGELOG.md)** | 🛠️ **v2.0.0-Auto**
+📄 **[Catatan Perubahan](CHANGELOG.id.md)** | 🛠️ **v2.0.0-Auto**
 
 **ncexs Auto Task** adalah skrip PowerShell portable untuk optimisasi runtime Windows secara **aman, silent, dan stabil**, tanpa mengganggu aplikasi atau sesi yang sedang berjalan.
 
@@ -230,5 +230,5 @@ Jika ada perubahan struktur OS atau browser di masa mendatang:
 
 ## 📜 Lisensi
 
-MIT License - lihat file [LICENSE](LICENSE) untuk detailnya.  
+MIT License - lihat file [LICENSE](../LICENSE) untuk detailnya.  
 Gunakan dengan risiko Anda sendiri ⚠️.

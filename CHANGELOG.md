@@ -1,5 +1,9 @@
 # 📋 Changelog
 
+🌐 **English** | [Bahasa Indonesia](docs/CHANGELOG.id.md) | [Basa Jawa](docs/CHANGELOG.jv.md) | [Basa Sunda](docs/CHANGELOG.su.md) | [हिन्दी](docs/CHANGELOG.hi.md) | [Русский](docs/CHANGELOG.ru.md) | [日本語](docs/CHANGELOG.ja.md) | [한국어](docs/CHANGELOG.ko.md) | [简体中文](docs/CHANGELOG.zh.md) | [العربية](docs/CHANGELOG.ar.md)
+
+---
+
 All notable changes to the **ncexs Auto Task** project will be documented in this file.
 
 ---
